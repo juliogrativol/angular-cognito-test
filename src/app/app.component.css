@@ -1,0 +1,39 @@
+#divActivites {
+    margin:auto;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    width:30em;
+    height:18em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+}
+
+#divLogin {
+    margin:auto;
+    position:relative;
+    /*border: 1px solid #ccc;
+    background-color: #f3f355;*/
+    margin-top: 20%;
+    margin-left: 25%;
+}
+
+#divSenha {
+    margin:auto;
+    position:relative;
+    /*border: 1px solid #ccc;
+    background-color: #f3f355;*/
+    margin-top: 4%;
+    margin-left: 25%;
+}
+
+#divButton {
+    margin:auto;
+    position:relative;
+    /*border: 1px solid #ccc;
+    background-color: #f3f355;*/
+    margin-top: 4%;
+    margin-left: 40%;
+}
