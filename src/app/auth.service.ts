@@ -75,6 +75,22 @@ export class AuthService {
     });
   }
 
+  public async resendConfirmationCode(userName: string): Promise<any> {
+    const userData = {
+      Username: userName,
+      Pool: userPool
+    };
+
+    cognitoUser = new CognitoUser(userData);
+
+    return new Promise((reject, resolve) => {
+      cognitoUser.resendConfirmationCode((result, err) => {
+        if (err) { reject(err); }
+        resolve(result);
+      });
+    });
+  }
+
   public async verifyCode(userInfo: User) {
     return new Promise((resolve, reject) => {
 
