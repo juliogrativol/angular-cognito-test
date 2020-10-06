@@ -74,7 +74,7 @@ export class AuthService {
       });
     });
   }
-
+  //
   public async resendConfirmationCode(userName: string): Promise<any> {
     const userData = {
       Username: userName,
