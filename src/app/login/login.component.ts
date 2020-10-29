@@ -42,10 +42,15 @@ export class LoginComponent implements OnInit {
 
     await this.authService.login(this.loginForm.value).catch(err => {
       console.log('err', err.message)
-      this.mensagemRetorno = err.message
+      console.log('erro', err)
+      this.mensagemRetorno = err
+    }).then(result => {
+      if (result == "newPasswordRequired"){
+        this.router.navigateByUrl('/newPasswordRequired');
+      }else{
+        this.router.navigateByUrl('/admin');
+      }
     });
-
-    this.router.navigateByUrl('/admin');
   }
 
   recuperarSenha(event: Event) {

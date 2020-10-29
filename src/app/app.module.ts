@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { PasswordRecoverComponent } from './password-recover/password-recover.component';
 import { NewUserComponent } from './new-user/new-user.component';
+import { NewPasswordRequiredComponent } from './new-password-required/new-password-required.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { NewUserComponent } from './new-user/new-user.component';
     LoginComponent,
     AdminComponent,
     PasswordRecoverComponent,
-    NewUserComponent
+    NewUserComponent,
+    NewPasswordRequiredComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

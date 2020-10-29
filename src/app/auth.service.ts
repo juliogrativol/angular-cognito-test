@@ -3,9 +3,10 @@ import { User } from './user';
 import { CognitoUserPool, CognitoUser, AuthenticationDetails, CognitoUserAttribute } from "amazon-cognito-identity-js";
 
 const poolData = {
-  UserPoolId: "xxxxxx",
-  ClientId: "xxxx",
+  UserPoolId: "us-east-1_JyYijsz4A",
+  ClientId: "7fkr0vos5eral5mham0irknim2",
 };
+
 const userPool = new CognitoUserPool(poolData);
 var cognitoUser = null
 
@@ -135,6 +136,10 @@ export class AuthService {
           console.log('sucesso', result)
           localStorage.setItem('ACCESS_TOKEN', this.result);
           resolve(result)
+        },
+        newPasswordRequired: function (result) {
+          console.log('newPasswordRequired')
+          resolve("newPasswordRequired")
         },
         onFailure: (function (err) {
           reject(err)
