@@ -48,18 +48,12 @@ export class AuthService {
     });
   }
 
-  changePassword(oldPassword: string, newPassword: string, email: string): any {
-    const userData = {
-      Username: email,
-      Pool: userPool,
-    };
+  async changePassword(oldPassword: string, newPassword: string, email: string): Promise<any> {
+    const userLogg: any = await this.login({ email, password: oldPassword });
 
+    localStorage.setItem("ACCESS_TOKEN", JSON.stringify(userLogg.signInUserSession));
 
-    const user = new CognitoUser(userData);
-
-    console.log(user);
-
-    user.changePassword(oldPassword, newPassword, (err, result) => {
+    userLogg.changePassword(oldPassword, newPassword, (err, result) => {
       if (err) {
         alert(err.message || JSON.stringify(err));
         return;
@@ -161,11 +155,12 @@ export class AuthService {
     };
 
     var cognitoUser = new CognitoUser(userData);
+
     return new Promise((resolve, reject) => {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result: any) => {
-          localStorage.setItem("ACCESS_TOKEN", JSON.stringify(result.idToken));
-          resolve(result);
+          localStorage.setItem("ACCESS_TOKEN", JSON.stringify(result));
+          resolve(cognitoUser);
         },
         newPasswordRequired: (result) => {
           resolve("newPasswordRequired");

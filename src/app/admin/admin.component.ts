@@ -12,13 +12,7 @@ export class AdminComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder
   ) { }
-
-  passwordForm = this.fb.group({
-    oldPassword: [''],
-    newPassword: ['']
-  });
 
   ngOnInit() {
     // console.log();
@@ -29,9 +23,9 @@ export class AdminComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  changePassword(): void {
-    const pass = this.passwordForm.getRawValue();
-    const { payload } = JSON.parse(localStorage.getItem("ACCESS_TOKEN"));
-    this.authService.changePassword(pass.oldPassword, pass.newPassword, payload.email);
+  newPassword(): void {
+    this.router.navigate(['/newPassword']);
   }
+
+
 }

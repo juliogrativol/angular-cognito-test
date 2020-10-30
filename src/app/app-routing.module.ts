@@ -12,13 +12,13 @@ import { NewPasswordRequiredComponent } from './new-password-required/new-passwo
 
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'login'},
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: 'recuperarSenha', component: PasswordRecoverComponent },
   { path: 'newUser', component: NewUserComponent },
   { path: 'newPasswordRequired', component: NewPasswordRequiredComponent },
-  { path: 'newPassword', component: ChangePasswordComponent },
+  { path: 'newPassword', component: ChangePasswordComponent, canActivate: [AuthGuard] },
   // otherwise redirect to home
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
