@@ -130,9 +130,10 @@ export class AuthService {
         result
       ) {
         if (err) {
-          reject(err);
+          reject(err.message);
         } else {
           resolve();
+          console.log("Resolvido =>", result);
         }
       });
     });

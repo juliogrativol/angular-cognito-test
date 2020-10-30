@@ -21,11 +21,6 @@ export class NewUserComponent implements OnInit {
 
   ngOnInit() {
     this.newUserForm = this.formBuilder.group({
-      userName: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.required,
-        Validators.maxLength(100),
-        Validators.pattern('')])],
       email: ['', Validators.compose([
         Validators.required,
         Validators.maxLength(100),
@@ -46,11 +41,6 @@ export class NewUserComponent implements OnInit {
           Validators.minLength(3),
           Validators.maxLength(15),
           Validators.pattern('^[0-9]*$')])],
-        userName: ['', Validators.compose([
-          Validators.minLength(3),
-          Validators.required,
-          Validators.maxLength(100),
-          Validators.pattern('')])],
         email: ['', Validators.compose([
           Validators.required,
           Validators.maxLength(100),
@@ -105,12 +95,12 @@ export class NewUserComponent implements OnInit {
       await this.authService.verifyCode(this.newUserForm.value)
         .then(retorno => {
           console.log('sucesso', retorno)
-          if (!retorno){
+          if (!retorno) {
             this.mensagemRetorno = "Usuário validado com sucesso!"
             this.isValidating = false
             this.isSubmitted = false
             this.newUserForm.reset()
-          }else{
+          } else {
             this.mensagemRetorno = String(retorno)
           }
         }).catch(err => {
