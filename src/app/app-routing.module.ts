@@ -9,6 +9,7 @@ import { PasswordRecoverComponent } from './password-recover/password-recover.co
 import { AuthGuard } from './auth.guard';
 import { NewUserComponent } from './new-user/new-user.component';
 import { NewPasswordRequiredComponent } from './new-password-required/new-password-required.component';
+import { RecoverCodeComponent } from './recover-code/recover-code.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'newUser', component: NewUserComponent },
   { path: 'newPasswordRequired', component: NewPasswordRequiredComponent },
   { path: 'newPassword', component: ChangePasswordComponent, canActivate: [AuthGuard] },
+  { path: 'recoverCode', component: RecoverCodeComponent },
   // otherwise redirect to home
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

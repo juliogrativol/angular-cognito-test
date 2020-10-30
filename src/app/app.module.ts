@@ -10,6 +10,7 @@ import { PasswordRecoverComponent } from './password-recover/password-recover.co
 import { NewUserComponent } from './new-user/new-user.component';
 import { NewPasswordRequiredComponent } from './new-password-required/new-password-required.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { RecoverCodeComponent } from './recover-code/recover-code.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     PasswordRecoverComponent,
     NewUserComponent,
     NewPasswordRequiredComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    RecoverCodeComponent
   ],
   imports: [
     BrowserModule,

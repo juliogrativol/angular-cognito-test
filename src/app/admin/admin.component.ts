@@ -27,5 +27,9 @@ export class AdminComponent implements OnInit {
     this.router.navigate(['/newPassword']);
   }
 
+  recoverCode(): void {
+    this.router.navigate(['/recoverCode'])
+  }
+
 
 }
