@@ -1,51 +1,74 @@
-import { Injectable } from '@angular/core';
-import { User } from './user';
-import { CognitoUserPool, CognitoUser, AuthenticationDetails, CognitoUserAttribute } from "amazon-cognito-identity-js";
+import { Injectable } from "@angular/core";
+import { User } from "./user";
+import {
+  CognitoUserPool,
+  CognitoUser,
+  AuthenticationDetails,
+  CognitoUserAttribute,
+} from "amazon-cognito-identity-js";
+import { Observable } from 'rxjs';
 
 const poolData = {
-  UserPoolId: "us-east-1_JyYijsz4A",
-  ClientId: "7fkr0vos5eral5mham0irknim2",
+  UserPoolId: "us-east-1_TmptgyCB3",
+  ClientId: "247ccg28bsvjpp09nanbi4sano",
 };
 
 const userPool = new CognitoUserPool(poolData);
-var cognitoUser = null
+var cognitoUser = null;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-
   constructor() { }
 
   public async passwordRecover(userInfo: User) {
-
-    console.log('userInfo', userInfo);
+    console.log("userInfo", userInfo);
 
     var userData = {
       Username: userInfo.email,
-      Pool: userPool
-    }
+      Pool: userPool,
+    };
 
     cognitoUser = new CognitoUser(userData);
 
     return new Promise((resolve, reject) => {
       cognitoUser.forgotPassword({
-        onSuccess: function (result) {
-          console.log('call result: ' + result);
-          resolve(result)
+        onSuccess: (result) => {
+          console.log("call result: " + result);
+          resolve(result);
         },
-        onFailure: function (err) {
+        onFailure: (err) => {
           reject(err);
         },
         inputVerificationCode() {
-          resolve("habilitar campos de verificação")
-        }
+          resolve("habilitar campos de verificação");
+        },
       });
     });
   }
 
-  public async confirmRecoverPassword(userInfo: User) {
+  changePassword(oldPassword: string, newPassword: string, email: string): any {
+    const userData = {
+      Username: email,
+      Pool: userPool,
+    };
 
+
+    const user = new CognitoUser(userData);
+
+    console.log(user);
+
+    user.changePassword(oldPassword, newPassword, (err, result) => {
+      if (err) {
+        alert(err.message || JSON.stringify(err));
+        return;
+      }
+      console.log('call result: ' + result);
+    });
+  }
+
+  public async confirmRecoverPassword(userInfo: User) {
     return new Promise((resolve, reject) => {
       cognitoUser.confirmPassword(userInfo.codigo, userInfo.newPassword, {
         onFailure(err) {
@@ -59,34 +82,41 @@ export class AuthService {
   }
 
   public async signUp(userInfo: User) {
-
     return new Promise((resolve, reject) => {
-
       var attributeList = [];
 
-      attributeList.push(new CognitoUserAttribute({ Name: "email", Value: userInfo.email }));
-
-      userPool.signUp(userInfo.userName, userInfo.password, attributeList, null, function (err, result) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
+      attributeList.push(
+        new CognitoUserAttribute({ Name: "email", Value: userInfo.email })
+      );
+      userPool.signUp(
+        userInfo.userName,
+        userInfo.password,
+        attributeList,
+        null,
+        (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
         }
-      });
+      );
     });
   }
   //
   public async resendConfirmationCode(userName: string): Promise<any> {
     const userData = {
       Username: userName,
-      Pool: userPool
+      Pool: userPool,
     };
 
     cognitoUser = new CognitoUser(userData);
 
     return new Promise((reject, resolve) => {
       cognitoUser.resendConfirmationCode((result, err) => {
-        if (err) { reject(err); }
+        if (err) {
+          reject(err);
+        }
         resolve(result);
       });
     });
@@ -94,15 +124,17 @@ export class AuthService {
 
   public async verifyCode(userInfo: User) {
     return new Promise((resolve, reject) => {
-
       var userData = {
         Username: userInfo.userName,
-        Pool: userPool
-      }
+        Pool: userPool,
+      };
 
       cognitoUser = new CognitoUser(userData);
 
-      cognitoUser.confirmRegistration(userInfo.codigo, true, function (err, result) {
+      cognitoUser.confirmRegistration(userInfo.codigo, true, function (
+        err,
+        result
+      ) {
         if (err) {
           reject(err);
         } else {
@@ -113,47 +145,43 @@ export class AuthService {
   }
 
   public async login(userInfo: User) {
-
-    const userPool = new CognitoUserPool(poolData);
+    var userPool = new CognitoUserPool(poolData);
 
     var userName = userInfo.email;
     var password = userInfo.password;
 
     var authenticationDetails = new AuthenticationDetails({
       Username: userName,
-      Password: password
+      Password: password,
     });
 
     var userData = {
       Username: userName,
-      Pool: userPool
-    }
+      Pool: userPool,
+    };
 
     var cognitoUser = new CognitoUser(userData);
     return new Promise((resolve, reject) => {
       cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (result) {
-          console.log('sucesso', result)
-          localStorage.setItem('ACCESS_TOKEN', this.result);
-          resolve(result)
+        onSuccess: (result: any) => {
+          localStorage.setItem("ACCESS_TOKEN", JSON.stringify(result.idToken));
+          resolve(result);
         },
-        newPasswordRequired: function (result) {
-          console.log('newPasswordRequired')
-          resolve("newPasswordRequired")
+        newPasswordRequired: (result) => {
+          resolve("newPasswordRequired");
         },
-        onFailure: (function (err) {
-          reject(err)
-        })
-      })
-    })
+        onFailure: (err) => {
+          reject(err);
+        },
+      });
+    });
   }
 
   public isLoggedIn() {
-    return localStorage.getItem('ACCESS_TOKEN') !== null;
-
+    return localStorage.getItem("ACCESS_TOKEN") !== null;
   }
 
   public logout() {
-    localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem("ACCESS_TOKEN");
   }
 }

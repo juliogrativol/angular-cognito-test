@@ -8,4 +8,14 @@
     </button>
   </p>
   <h1>Área do admin</h1>
+  <div class="box">
+    <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+      <h1>Trocar de senha</h1>
+      <input type="text" type="text" formControlName="oldPassword" placeholder="Senha antiga">
+      <input type="text" type="text" formControlName="newPassword" placeholder="Nova Senha">
+      <button type="submit">
+        <p>Enviar</p>
+      </button>
+    </form>
+  </div>
 </div>
