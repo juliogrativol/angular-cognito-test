@@ -83,7 +83,7 @@ export class AuthService {
         new CognitoUserAttribute({ Name: "email", Value: userInfo.email })
       );
       userPool.signUp(
-        userInfo.userName,
+        userInfo.email,
         userInfo.password,
         attributeList,
         null,

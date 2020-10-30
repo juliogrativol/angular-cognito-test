@@ -1,3 +1,14 @@
-<p>
-  recover-code works!
-</p>
+<div *ngIf="!onSuccess" class="box">
+    <h1>Recuperar código de autenticação</h1>
+    <input [(ngModel)]="userEmail" type="text" placeholder="E-mail">
+    <button type="submit" (click)="resendConfirmationCode()">
+      <p>Enviar</p>
+    </button>
+</div>
+<div *ngIf="onSuccess" class="box">
+  <h1>Digite o código de autenticação</h1>
+    <input [(ngModel)]="code" type="text" placeholder="Código">
+    <button type="submit" (click)="sendConfirmationCode()">
+      <p>Enviar</p>
+    </button>
+</div>

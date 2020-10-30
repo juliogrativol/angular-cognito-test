@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
         Validators.maxLength(100),
         Validators.pattern('')])],
       password: ['', Validators.compose([
-        Validators.required, 
+        Validators.required,
         Validators.minLength(6),
         Validators.maxLength(15)])]
     });
@@ -33,31 +33,37 @@ export class LoginComponent implements OnInit {
   get formControls() { return this.loginForm.controls; }
 
   async login() {
-    console.log(this.loginForm.value);
     this.mensagemRetorno = "";
     this.isSubmitted = true;
     if (this.loginForm.invalid) {
       return;
     }
 
-    await this.authService.login(this.loginForm.value).catch(err => {
-      console.log('err', err.message)
-      console.log('erro', err)
-      this.mensagemRetorno = err
-    }).then(result => {
-      if (result == "newPasswordRequired"){
-        this.router.navigateByUrl('/newPasswordRequired');
-      }else{
-        this.router.navigateByUrl('/admin');
-      }
-    });
+    await this.authService.login(this.loginForm.value)
+      .then((result: any) => {
+        if (result === "newPasswordRequired") {
+          this.router.navigateByUrl('/newPasswordRequired');
+        } else {
+          this.router.navigateByUrl('/admin');
+        }
+      }).catch(err => {
+        console.log('err', err.message);
+        console.log('erro', err);
+        if (err.message === 'User is not confirmed.') {
+          this.router.navigate(['/recoverCode', { info: JSON.stringify(this.loginForm.value.email) }]);
+        }
+        this.mensagemRetorno = err;
+      });
   }
 
   recuperarSenha(event: Event) {
     this.router.navigateByUrl('/recuperarSenha');
   }
 
-  registrarUsuario(event: Event){
+  registrarUsuario(event: Event) {
     this.router.navigateByUrl('/newUser');
+  }
+  recoverCode(): void {
+    this.router.navigate(['/recoverCode'])
   }
 }
