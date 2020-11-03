@@ -7,6 +7,7 @@ import {
   CognitoUserAttribute,
 } from "amazon-cognito-identity-js";
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 const poolData = {
   UserPoolId: "us-east-1_TmptgyCB3",
@@ -20,7 +21,7 @@ var cognitoUser = null;
   providedIn: "root",
 })
 export class AuthService {
-  constructor() { }
+  constructor(private router: Router) { }
 
   public async passwordRecover(userInfo: User) {
 
@@ -188,12 +189,12 @@ export class AuthService {
 
     user['Session'] = cognUser['Session'];
 
-    console.log(user);
-    console.log(userAttributes)
-
-    user.completeNewPasswordChallenge(newPassword, userAttributes, {
-      onSuccess: (session: any) => console.log(session),
-      onFailure: (err: any) => console.log(err)
+    user.completeNewPasswordChallenge(newPassword, {}, {
+      onSuccess: (session: any) => {
+        alert('Nova senha criada com sucesso');
+        this.router.navigate(['/login']);
+      },
+      onFailure: (err: any) => alert(err)
     });
   }
 
