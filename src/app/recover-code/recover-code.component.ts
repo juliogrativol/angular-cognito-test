@@ -11,6 +11,7 @@ export class RecoverCodeComponent implements OnInit {
   userEmail: string;
   onSuccess: boolean;
   code: string;
+  message: string;
 
   constructor(
     private authService: AuthService,
@@ -30,10 +31,15 @@ export class RecoverCodeComponent implements OnInit {
     }
   }
 
-  async sendConfirmationCode(): Promise<any> {
+  sendConfirmationCode(): void {
     const userInfo = { userName: this.userEmail, codigo: this.code };
-    const result = await this.authService.verifyCode(userInfo);
-    this.router.navigate(['/login']);
+    this.authService.verifyCode(userInfo).then(
+      (result: string) => {
+        this.message = 'Código validado com sucesso';
+        setTimeout(() => this.router.navigate(['/login'])
+          , 2000);
+      }
+    );
   }
 
 }

@@ -31,3 +31,7 @@ button[type="submit"] {
     cursor: pointer;
     width: 100%;
 }
+
+.message{
+    color: #ffffff
+}

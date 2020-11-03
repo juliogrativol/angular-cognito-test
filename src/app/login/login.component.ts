@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         if (err.message === 'User is not confirmed.') {
           this.router.navigate(['/recoverCode', { info: JSON.stringify(this.loginForm.value.email) }]);
         }
-        this.mensagemRetorno = err;
+        this.mensagemRetorno = err.message;
       });
   }
 

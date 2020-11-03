@@ -125,11 +125,12 @@ export class AuthService {
 
       cognitoUser = new CognitoUser(userData);
 
-      cognitoUser.confirmRegistration(userInfo.codigo, true, function (
+      cognitoUser.confirmRegistration(userInfo.codigo, true, (
         err,
         result
-      ) {
+      ) => {
         if (err) {
+          alert(err.message);
           reject(err.message);
         } else {
           resolve();
