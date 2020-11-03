@@ -118,6 +118,7 @@ export class AuthService {
 
   public async verifyCode(userInfo: User) {
     return new Promise((resolve, reject) => {
+
       var userData = {
         Username: userInfo.email,
         Pool: userPool,

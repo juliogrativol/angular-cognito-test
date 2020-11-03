@@ -32,7 +32,7 @@ export class RecoverCodeComponent implements OnInit {
   }
 
   sendConfirmationCode(): void {
-    const userInfo = { userName: this.userEmail, codigo: this.code };
+    const userInfo = { email: this.userEmail, codigo: this.code };
     this.authService.verifyCode(userInfo).then(
       (result: string) => {
         this.message = 'Código validado com sucesso';
