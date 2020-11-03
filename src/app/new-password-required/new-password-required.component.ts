@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-new-password-required',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewPasswordRequiredComponent implements OnInit {
 
-  constructor() { }
+  info: any;
+  newPassword: string;
+
+  constructor(
+    private auth: AuthService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    const { data } = this.route.snapshot.params;
+    this.info = JSON.parse(atob(data));
+  }
+
+  sendNewPassword(): void {
+    this.auth.completeNewPasswordChallenge(this.newPassword);
   }
 
 }

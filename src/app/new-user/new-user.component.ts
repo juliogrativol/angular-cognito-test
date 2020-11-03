@@ -92,9 +92,9 @@ export class NewUserComponent implements OnInit {
           this.mensagemRetorno = err.message
         });
     } else {
+      console.log(this.newUserForm.value)
       await this.authService.verifyCode(this.newUserForm.value)
         .then(retorno => {
-          console.log('sucesso', retorno)
           if (!retorno) {
             this.mensagemRetorno = "Usuário validado com sucesso!"
             this.isValidating = false

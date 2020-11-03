@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     await this.authService.login(this.loginForm.value)
       .then((result: any) => {
         if (result === "newPasswordRequired") {
-          this.router.navigateByUrl('/newPasswordRequired');
+          this.router.navigate(['/newPasswordRequired', { data: btoa(JSON.stringify(this.loginForm.getRawValue())) }]);
         } else {
           this.router.navigateByUrl('/admin');
         }

@@ -23,7 +23,6 @@ export class AuthService {
   constructor() { }
 
   public async passwordRecover(userInfo: User) {
-    console.log("userInfo", userInfo);
 
     var userData = {
       Username: userInfo.email,
@@ -48,7 +47,7 @@ export class AuthService {
     });
   }
 
-  async changePassword(oldPassword: string, newPassword: string, email: string): Promise<any> {
+  public async changePassword(oldPassword: string, newPassword: string, email: string): Promise<any> {
     const userLogg: any = await this.login({ email, password: oldPassword });
 
     localStorage.setItem("ACCESS_TOKEN", JSON.stringify(userLogg.signInUserSession));
@@ -56,9 +55,9 @@ export class AuthService {
     userLogg.changePassword(oldPassword, newPassword, (err, result) => {
       if (err) {
         alert(err.message || JSON.stringify(err));
-        return;
+        return err.message;
       }
-      console.log('call result: ' + result);
+      return result;
     });
   }
 
@@ -119,7 +118,7 @@ export class AuthService {
   public async verifyCode(userInfo: User) {
     return new Promise((resolve, reject) => {
       var userData = {
-        Username: userInfo.userName,
+        Username: userInfo.email,
         Pool: userPool,
       };
 
@@ -164,13 +163,37 @@ export class AuthService {
           localStorage.setItem("ACCESS_TOKEN", JSON.stringify(result));
           resolve(cognitoUser);
         },
-        newPasswordRequired: (result) => {
+        newPasswordRequired: (userAttributes, requiredAttributes) => {
+          localStorage.setItem('sessionUserAttributes', JSON.stringify({ userAttributes, cognUser: cognitoUser }));
           resolve("newPasswordRequired");
         },
         onFailure: (err) => {
           reject(err);
         },
       });
+    });
+  }
+
+  public completeNewPasswordChallenge(newPassword: any) {
+    const { userAttributes, cognUser } = JSON.parse(localStorage.getItem('sessionUserAttributes'));
+    const pool = new CognitoUserPool(poolData);
+
+
+    const userData = {
+      Username: userAttributes.email,
+      Pool: pool,
+    };
+
+    const user = new CognitoUser(userData);
+
+    user['Session'] = cognUser['Session'];
+
+    console.log(user);
+    console.log(userAttributes)
+
+    user.completeNewPasswordChallenge(newPassword, userAttributes, {
+      onSuccess: (session: any) => console.log(session),
+      onFailure: (err: any) => console.log(err)
     });
   }
 
