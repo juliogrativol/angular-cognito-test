@@ -13,6 +13,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "crypto-js/lib-typedarrays",
+              "crypto-js/sha256",
+              "crypto-js/hmac-sha256",
+              "crypto-js/enc-base64",
+              "buffer/",
+              "js-cookie"
+            ],
             "aot": true,
             "outputPath": "dist/angular-cognito-test",
             "index": "src/index.html",
