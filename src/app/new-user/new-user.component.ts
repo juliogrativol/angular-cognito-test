@@ -62,7 +62,6 @@ export class NewUserComponent implements OnInit {
 
   async newUser() {
 
-    console.log(this.newUserForm.value);
     this.mensagemRetorno = "";
     this.isSubmitted = true;
 
@@ -95,10 +94,11 @@ export class NewUserComponent implements OnInit {
       await this.authService.verifyCode(this.newUserForm.value)
         .then(retorno => {
           if (!retorno) {
-            this.mensagemRetorno = "Usuário validado com sucesso!"
-            this.isValidating = false
-            this.isSubmitted = false
-            this.newUserForm.reset()
+            this.isValidating = false;
+            this.isSubmitted = false;
+            this.newUserForm.reset();
+            alert("Usuário validado com sucesso!");
+            this.router.navigate(['/login']);
           } else {
             this.mensagemRetorno = String(retorno)
           }

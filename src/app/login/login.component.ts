@@ -47,8 +47,6 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/admin');
         }
       }).catch(err => {
-        console.log('err', err.message);
-        console.log('erro', err);
         if (err.message === 'User is not confirmed.') {
           this.router.navigate(['/recoverCode', { info: JSON.stringify(this.loginForm.value.email) }]);
         }
