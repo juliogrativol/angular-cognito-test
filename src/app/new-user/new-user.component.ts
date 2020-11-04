@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -29,6 +29,11 @@ export class NewUserComponent implements OnInit {
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(15),
+        Validators.pattern('')])],
+      repassword: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(15),
         Validators.pattern('')])]
     });
   }
@@ -49,12 +54,23 @@ export class NewUserComponent implements OnInit {
           Validators.required,
           Validators.minLength(6),
           Validators.maxLength(15),
+          Validators.pattern('')])],
+        repassword: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(15),
           Validators.pattern('')])]
       });
     }
   }
 
-  get formControls() { return this.newUserForm.controls; }
+  get formControls() {
+    return this.newUserForm.controls;
+  }
+
+  get validationForm() {
+    return this.newUserForm.status === 'INVALID';
+  }
 
   telaLogin() {
     this.router.navigateByUrl('/login');

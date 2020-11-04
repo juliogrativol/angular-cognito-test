@@ -64,11 +64,10 @@
   border-color: #888;
 }
 
-.login input[type="submit"] {
+.login button[type="submit"] {
   background: rgb(1, 29, 51);
   border-color: transparent;
   color: #fff;
-  cursor: pointer;
 }
 
 .login button[type="button"] {
@@ -76,14 +75,6 @@
   border-color: transparent;
   color: #fff;
   cursor: pointer;
-}
-
-.login input[type="submit"]:hover {
-  background: #17c;
-}
-
-.login input[type="submit"]:focus {
-  border-color: #05a;
 }
 
 .has-error input[type="email"],
@@ -101,4 +92,8 @@
 .has-error input[type="codigo"] {
     border-color: rgb(216, 12, 12);
     color: rgb(230, 14, 14);
+}
+
+.c-padding{
+  padding: 12px;
 }
