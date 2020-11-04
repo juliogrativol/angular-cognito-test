@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { PasswordRecoverComponent } from './password-recover/password-recover.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { NewUserComponent } from './new-user/new-user.component';
 import { NewPasswordRequiredComponent } from './new-password-required/new-password-required.component';
 import { RecoverCodeComponent } from './recover-code/recover-code.component';

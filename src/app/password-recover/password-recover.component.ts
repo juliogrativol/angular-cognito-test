@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../user';
-import { AuthService } from '../auth.service';
+import { User } from '../models/user';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-password-recover',
@@ -35,7 +35,7 @@ export class PasswordRecoverComponent implements OnInit {
 
   get formControls() { return this.passwordRecoverForm.controls; }
 
-  telaLogin(){
+  telaLogin() {
     this.router.navigateByUrl('/login');
   }
 
@@ -61,14 +61,14 @@ export class PasswordRecoverComponent implements OnInit {
         });
     } else {
       await this.authService.confirmRecoverPassword(this.passwordRecoverForm.value)
-      .then(retorno => {
-        console.log('sucesso', retorno)
-        this.mensagemRetorno = "Senha alterada com sucesso."
-        this.passwordRecoverForm.reset()
-      }).catch(err => {
-        console.log('err', err.message)
-        this.mensagemRetorno = err.message
-      });
+        .then(retorno => {
+          console.log('sucesso', retorno)
+          this.mensagemRetorno = "Senha alterada com sucesso."
+          this.passwordRecoverForm.reset()
+        }).catch(err => {
+          console.log('err', err.message)
+          this.mensagemRetorno = err.message
+        });
     }
 
     this.isSubmitted = false;
