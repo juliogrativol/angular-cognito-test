@@ -12,6 +12,8 @@ import { NewPasswordRequiredComponent } from './new-password-required/new-passwo
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { RecoverCodeComponent } from './recover-code/recover-code.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NewUserComponent,
     NewPasswordRequiredComponent,
     ChangePasswordComponent,
-    RecoverCodeComponent
+    RecoverCodeComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
