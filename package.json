@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build:local": "ng build --configuration=development --aot --build-optimizer=true",
+    "build:prod": "ng build --configuration=production --aot --output-hashing=all --extract-css=true --named-chunks=false --build-optimizer=true",
+    "build:dev": "ng build --configuration=development --aot --build-optimizer=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
