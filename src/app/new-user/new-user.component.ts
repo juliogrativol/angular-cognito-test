@@ -2,6 +2,7 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ValidatorService } from '../services/validator.service';
 
 @Component({
   selector: 'app-new-user',
@@ -10,7 +11,12 @@ import { AuthService } from '../services/auth.service';
 })
 export class NewUserComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private validator: ValidatorService
+  ) { }
 
   newUserForm: FormGroup;
   savedForm: FormGroup;
@@ -30,12 +36,12 @@ export class NewUserComponent implements OnInit {
         Validators.minLength(6),
         Validators.maxLength(15),
         Validators.pattern('')])],
-      repassword: ['', Validators.compose([
+      confirmPass: ['', Validators.compose([
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(15),
         Validators.pattern('')])]
-    });
+    }, { validators: [this.validator.checkPasswords] });
   }
 
   habiblitaVerificacaoCodigo() {
@@ -55,7 +61,7 @@ export class NewUserComponent implements OnInit {
           Validators.minLength(6),
           Validators.maxLength(15),
           Validators.pattern('')])],
-        repassword: ['', Validators.compose([
+        confirmPass: ['', Validators.compose([
           Validators.required,
           Validators.minLength(6),
           Validators.maxLength(15),

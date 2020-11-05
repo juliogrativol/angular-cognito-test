@@ -28,15 +28,19 @@
     </div>
 
 
-    <p [ngClass]="{ 'has-error': isSubmitted && formControls.repassword.errors }">
-      <input type="password" placeholder="Repita a senha" formControlName="repassword" [readonly]="isValidating">
+    <p [ngClass]="{ 'has-error': isSubmitted && formControls.confirmPass.errors }">
+      <input type="password" placeholder="Repita a senha" formControlName="confirmPass" [readonly]="isValidating">
     </p>
 
-    <div *ngIf="isSubmitted && formControls.repassword.errors" class="help-block">
-      <div *ngIf="formControls.repassword.errors.required">Senha é obrigatório</div>
-      <div *ngIf="formControls.repassword.errors.maxlength">Senha não deve exceder 15 caracteres</div>
-      <div *ngIf="formControls.repassword.errors.minlength">Senha não deve ser menor que 7 caracteres</div>
-      <div *ngIf="formControls.repassword.errors.pattern">Senha não segue o padrão</div>
+    <div *ngIf="newUserForm.errors?.notSame">
+      <p class="text-danger">A senha e a confirmação da senha estão diferentes</p>
+    </div>
+
+    <div *ngIf="isSubmitted && formControls.confirmPass.errors" class="help-block">
+      <div *ngIf="formControls.confirmPass.errors.required">Senha é obrigatório</div>
+      <div *ngIf="formControls.confirmPass.errors.maxlength">Senha não deve exceder 15 caracteres</div>
+      <div *ngIf="formControls.confirmPass.errors.minlength">Senha não deve ser menor que 7 caracteres</div>
+      <div *ngIf="formControls.confirmPass.errors.pattern">Senha não segue o padrão</div>
     </div>
 
     <div *ngIf="isValidating">
