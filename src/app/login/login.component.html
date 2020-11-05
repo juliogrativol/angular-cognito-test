@@ -5,7 +5,7 @@
   <h2 class="login-header">Log in</h2>
   <form [formGroup]="loginForm" class="login-container" (ngSubmit)="login()">
 
-    <p [ngClass]="{ 'has-error': isSubmitted && formControls.email.errors }">
+    <p class="mt-2" [ngClass]="{ 'has-error': isSubmitted && formControls.email.errors }">
       <input type="email" placeholder="Email" formControlName="email">
     </p>
 
@@ -15,7 +15,7 @@
       <div *ngIf="formControls.email.errors.pattern">Seu email não segue o padrão. </div>
     </div>
 
-    <p [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+    <p class="mt-2 mb-5" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
       <input type="password" placeholder="Senha" formControlName="password">
     </p>
 
@@ -24,16 +24,11 @@
       <div *ngIf="formControls.password.errors.minlength">Sua senha deve ter no mínimo 6 caracteres. </div>
       <div *ngIf="formControls.password.errors.maxlength">Sua senha não pode exceder 15 caracteres. </div>
     </div>
-
-    <p>
-      <input type="submit" value="Log in">
-    </p>
-    <p>
-      <button type="button" (click)="recuperarSenha($event)">Recuperar Senha</button>
-    </p>
-    <p>
-      <button type="button" (click)="registrarUsuario($event)">Registrar</button>
-    </p>
+      <button class="btn btn-primary w-100" type="submit">
+        Log in
+      </button>
+      <button class="btn btn-outline-info w-100 mt-2" type="button" (click)="recuperarSenha($event)">Recuperar Senha</button>
+      <button class="btn btn-outline-info w-100 mt-2" type="button" (click)="registrarUsuario($event)">Registrar</button>
     <p>
       {{mensagemRetorno}}
     </p>
