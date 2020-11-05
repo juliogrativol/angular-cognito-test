@@ -43,8 +43,10 @@
       <div *ngIf="formControls.confirmPass.errors.pattern">Senha não segue o padrão</div>
     </div>
 
+    <app-password-strength [form]="newUserForm"></app-password-strength>
+    
     <div *ngIf="isValidating">
-      <p [ngClass]="{ 'has-error': isSubmitted && formControls.codigo.errors }">
+      <p class="pr-0 pl-0" [ngClass]="{ 'has-error': isSubmitted && formControls.codigo.errors }">
         <input type="codigo" placeholder="Código" formControlName="codigo">
       </p>
 
@@ -55,7 +57,7 @@
         <div *ngIf="formControls.codigo.errors.pattern">Código não segue o padrão</div>
       </div>
     </div>
-    <app-password-strength [form]="newUserForm"></app-password-strength>
+    
     <div class="c-padding">
       <button [disabled]="validationForm" type="submit" class="btn w-100">
         Enviar
