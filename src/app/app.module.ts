@@ -14,6 +14,7 @@ import { RecoverCodeComponent } from './recover-code/recover-code.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { PasswordStrengthModule } from './components/password-strength/password-strength.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FooterComponent } from './footer/footer.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    PasswordStrengthModule,
     AppRoutingModule,
     BrowserAnimationsModule,
   ],

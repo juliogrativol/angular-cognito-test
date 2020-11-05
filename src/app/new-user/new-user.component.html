@@ -5,7 +5,7 @@
   <h2 class="login-header">{{titulo}}</h2>
   <form [formGroup]="newUserForm" class="login-container" (ngSubmit)="newUser()">
 
-    <p [ngClass]="{ 'has-error': isSubmitted && formControls.email.errors }">
+    <p class="pr-0 pl-0" [ngClass]="{ 'has-error': isSubmitted && formControls.email.errors }">
       <input type="email" placeholder="Email" formControlName="email" [readonly]="isValidating">
     </p>
 
@@ -16,7 +16,7 @@
       <div *ngIf="formControls.email.errors.pattern">Padrão de email inválido</div>
     </div>
 
-    <p [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+    <p class="pr-0 pl-0" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
       <input type="password" placeholder="Senha" formControlName="password" [readonly]="isValidating">
     </p>
 
@@ -28,12 +28,12 @@
     </div>
 
 
-    <p [ngClass]="{ 'has-error': isSubmitted && formControls.confirmPass.errors }">
+    <p class="pr-0 pl-0" [ngClass]="{ 'has-error': isSubmitted && formControls.confirmPass.errors }">
       <input type="password" placeholder="Repita a senha" formControlName="confirmPass" [readonly]="isValidating">
     </p>
 
-    <div *ngIf="newUserForm.errors?.notSame">
-      <p class="text-danger">A senha e a confirmação da senha estão diferentes</p>
+    <div class="mb-4" *ngIf="newUserForm.errors?.notSame">
+      <h6 class="text-danger text-center">Confirmação da senha precisa ser igual a senha</h6>
     </div>
 
     <div *ngIf="isSubmitted && formControls.confirmPass.errors" class="help-block">
@@ -55,6 +55,7 @@
         <div *ngIf="formControls.codigo.errors.pattern">Código não segue o padrão</div>
       </div>
     </div>
+    <app-password-strength [form]="newUserForm"></app-password-strength>
     <div class="c-padding">
       <button [disabled]="validationForm" type="submit" class="btn w-100">
         Enviar

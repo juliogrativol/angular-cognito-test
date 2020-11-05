@@ -50,6 +50,7 @@
   outline: 0;
   font-family: inherit;
   font-size: 0.95em;
+  border-radius: .25rem;
 }
 
 .login input[type="email"],
@@ -95,5 +96,6 @@
 }
 
 .c-padding{
-  padding: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
